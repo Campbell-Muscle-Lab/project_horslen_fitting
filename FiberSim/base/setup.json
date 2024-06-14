@@ -1,9 +1,9 @@
 {
-  "FiberSim_setup":
+  "cMyoSim_setup":
   {
-    "FiberCpp_exe": {
+    "MyoSimCpp_exe": {
       "relative_to": "False",
-      "exe_file": "d:/ken/github/campbellmusclelab/models/fibersim/bin/FiberCpp.exe"
+      "exe_file": "d:/ken/github/campbellmusclelab/models/cMyoSim/bin/MyoSimCpp.exe"
     },
     "model":
     {
@@ -12,26 +12,26 @@
       "fitting":
       {
         "base_model": "model.json",
-        "generated_folder": "../generated",
-        "working_folder": "../working",
-        "current_folder": "../current",
         "progress_folder": "../progress",
+        "thread_folder": "../threads",
         "Python_objective_call": "../Python_code/return_fit.py",
         "optimizer": "particle_swarm",
-        "single_run": "True",
+        "single_run": "False",
         "Python_best_call": "../Python_code/best_update.py",
         "adjustments":
         [
           {
             "class": "thin_parameters", 
             "variable": "a_k_on",
-            "factor_bounds": [0.5, 2],
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log",
             "output_type": "float"
           },
           {
             "class": "thin_parameters", 
             "variable": "a_k_coop",
-            "factor_bounds": [0.5, 2],
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log",
             "output_type": "float"
           },
           {
@@ -55,7 +55,7 @@
           {
             "variable": "m_kinetics",
             "isotype": 1,
-            "state": 1,
+            "state": 2,
             "transition": 1,
             "parameter_number": 1,
             "factor_bounds": [-1, 1],
@@ -82,11 +82,76 @@
           {
             "variable": "m_kinetics",
             "isotype": 1,
+            "state": 3,
+            "transition": 2,
+            "parameter_number": 1,
+            "factor_bounds": [0, 2]
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 3,
+            "transition": 2,
+            "parameter_number": 2,
+            "factor_bounds": [0, 2]
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 4,
+            "extension": 1,
+            "factor_bounds": [0.5, 1]
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
             "state": 4,
             "transition": 1,
             "parameter_number": 1,
             "factor_bounds": [-1, 1],
             "factor_mode": "log"
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 4,
+            "transition": 1,
+            "parameter_number": 2,
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log"
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 4,
+            "transition": 1,
+            "parameter_number": 2,
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log"
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 4,
+            "transition": 1,
+            "parameter_number": 3,
+            "factor_bounds": [0, 2]
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 4,
+            "transition": 2,
+            "parameter_number": 1,
+            "factor_bounds": [0, 2]
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 4,
+            "transition": 2,
+            "parameter_number": 2,
+            "factor_bounds": [0, 2]
           }
         ]
     }
@@ -100,8 +165,9 @@
             "protocol_files": [
                 "../protocols/prot_pCa_90.txt",
                 "../protocols/prot_pCa_64.txt",
-                "../protocols/prot_pCa_63.txt"],
-            "m_n": 9,
+                "../protocols/prot_pCa_63.txt",
+                "../protocols/prot_pCa_61.txt",
+                "../protocols/prot_pCa_45.txt"],
             "output_image_formats": [ "png" ],
             "figures_only": "False",
             "trace_figures_on": "False"            

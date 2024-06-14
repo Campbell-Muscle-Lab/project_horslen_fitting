@@ -1,4 +1,6 @@
 **/progress/**/*.*
+**/progress_abs/**/*.*
+**/progress_backup/**/*.*
 **/current/**/*.*
 **/generated/**/*.*
 **/working/**/*.*

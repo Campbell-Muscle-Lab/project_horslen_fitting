@@ -1,0 +1,208 @@
+{
+  "cMyoSim_setup":
+  {
+    "MyoSimCpp_exe": {
+      "relative_to": "False",
+      "exe_file": "d:/ken/github/campbellmusclelab/models/cMyoSim/bin/MyoSimCpp.exe"
+    },
+    "model":
+    {
+      "relative_to": "this_file",
+      "options_file": "sim_options.json",
+      "fitting":
+      {
+        "base_model": "best_model.json",
+        "generated_folder": "../generated",
+        "progress_folder": "../progress",
+        "thread_folder": "../threads",
+        "Python_objective_call": "../Python_code/return_fit.py",
+        "optimizer": "particle_swarm",
+        "single_run": "True",
+        "Python_best_call": "../Python_code/best_update.py",
+        "adjustments":
+        [
+          {
+            "class": "series_component", 
+            "variable": "sc_sigma",
+            "factor_bounds": [-0.5, 0.5],
+            "factor_mode": "log",
+            "output_type": "float"
+          },
+          {
+            "class": "series_component", 
+            "variable": "sc_L",
+            "factor_bounds": [-0.5, 0.5],
+            "factor_mode": "log",
+            "output_type": "float"
+          },
+          
+          {
+            "class": "thin_parameters", 
+            "variable": "a_k_on",
+            "factor_bounds": [-0.5, 0.5],
+            "factor_mode": "log",
+            "output_type": "float"
+          },
+          {
+            "class": "thin_parameters", 
+            "variable": "a_k_coop",
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log",
+            "output_type": "float"
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 1,
+            "transition": 1,
+            "parameter_number": 1,
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log"
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 1,
+            "transition": 1,
+            "parameter_number": 2,
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log"
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 2,
+            "transition": 1,
+            "parameter_number": 1,
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log"
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 2,
+            "transition": 2,
+            "parameter_number": 1,
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log"
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 3,
+            "transition": 1,
+            "parameter_number": 1,
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log"
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 3,
+            "transition": 1,
+            "parameter_number": 2,
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log"
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 3,
+            "transition": 1,
+            "parameter_number": 3,
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log"
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 3,
+            "transition": 2,
+            "parameter_number": 1,
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log"
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 3,
+            "transition": 2,
+            "parameter_number": 2,
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log"
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 4,
+            "extension": 1,
+            "factor_bounds": [0.5, 1.5]
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 4,
+            "transition": 1,
+            "parameter_number": 1,
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log"
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 4,
+            "transition": 1,
+            "parameter_number": 2,
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log"
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 4,
+            "transition": 1,
+            "parameter_number": 3,
+            "factor_bounds": [0, 2]
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 4,
+            "transition": 2,
+            "parameter_number": 1,
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log"
+          },
+          {
+            "variable": "m_kinetics",
+            "isotype": 1,
+            "state": 4,
+            "transition": 2,
+            "parameter_number": 2,
+            "factor_bounds": [-1, 1],
+            "factor_mode": "log"
+          }
+        ]
+    }
+  },
+  "characterization":
+  [
+        {
+            "type": "freeform",
+            "relative_to": "this_file",
+            "sim_folder": "../sim_data",
+            "protocol_files": [
+                "../protocols/prot_pCa_90.txt",
+                "../protocols/prot_pCa_64.txt",
+                "../protocols/prot_pCa_62.txt",
+                "../protocols/prot_pCa_61.txt",
+                "../protocols/prot_pCa_45.txt"],
+            "xprotocol_files": [
+                "../protocols/prot_pCa_90.txt"],
+            "output_image_formats": [ "png" ],
+            "figures_only": "False",
+            "trace_figures_on": "False"            
+        }
+    ]
+  }
+}

@@ -18,27 +18,30 @@ from natsort import natsorted
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
-def return_fit():
+def return_fit(thread_top_dir):
     """ returns a single value definining the least squares fit
         between the current simulation and the target data """
         
     # Variables
-    top_data_folder = '../sim_data/sim_output'
-    target_forces_file = '../target_data/target_forces.txt'
-    trial_errors_file = '../working/trial_errors.xlsx'
-    sim_comparison_file = 'sim_comparison_current.png'
     
-    # Code
-    # Adapt because files are relative to this file
-    parent_dir = Path(__file__).parent.absolute()
-    top_data_folder = Path(os.path.join(parent_dir, top_data_folder)).resolve()
-    
-    target_forces_file = Path(os.path.join(parent_dir, target_forces_file)).resolve()
+    working_folder = 'working'
+    sim_output_folder = 'sim_data/sim_output/1'
+    target_forces_file = '../../target_data/target_forces.txt'
+    trial_errors_file = 'trial_errors.xlsx'
+    sim_comparison_file = 'sim_comparison.png'
 
-    trial_errors_file = os.path.join(parent_dir, trial_errors_file)
-    
-    sim_comparison_file = os.path.join(top_data_folder, sim_comparison_file)
-    
+    # Adapt to directory    
+    working_folder = str(Path(os.path.join(
+        thread_top_dir, working_folder)).resolve())
+    sim_output_folder = str(Path(os.path.join(
+        thread_top_dir, sim_output_folder)).resolve())
+    target_forces_file = str(Path(os.path.join(
+        thread_top_dir, target_forces_file)).resolve())
+        
+    trial_errors_file = str(Path(os.path.join(working_folder,
+                                              trial_errors_file)))
+    sim_comparison_file = str(Path(os.path.join(working_folder,
+                                                sim_comparison_file)))
 
     # Load the target forces
     target_forces = np.genfromtxt(target_forces_file, delimiter='\t')
@@ -46,11 +49,9 @@ def return_fit():
     # Find the simulation files
     cond_counter = 1
     keep_going = True
-    
-    sim_folder = os.path.join(top_data_folder, '1')        
 
     # Find the results files
-    sim_files = os.listdir(sim_folder)
+    sim_files = os.listdir(sim_output_folder)
     sim_files = natsorted(sim_files)
     
     # Set up for error components
@@ -79,7 +80,7 @@ def return_fit():
         if file.endswith('.txt'):
             
             # Load up the simulation
-            sim_file_string = os.path.join(sim_folder, file)
+            sim_file_string = os.path.join(sim_output_folder, file)
             d = pd.read_csv(sim_file_string, delimiter = '\t')
 
             # Pull off simulated force            
@@ -92,10 +93,9 @@ def return_fit():
             
             # Prune to the target points
             comp_f = sim_f[-target_points::]
-            comp_points = len(comp_f)
             
             # Calculate least squares
-            rel_diff = (comp_f - target_f) / target_f
+            rel_diff = (comp_f - target_f) / np.mean(target_f)
     
             ec = np.sum(np.power(rel_diff, 2))
             
@@ -110,13 +110,13 @@ def return_fit():
             
             # Update counter                    
             cond_counter = cond_counter + 1
-        else:
-            keep_going = False
             
     # Save figure
     fig.savefig(sim_comparison_file,
                 bbox_inches='tight',
                 dpi=200)
+    
+    plt.close()
     
             
     # Calculate the final error value
@@ -142,5 +142,6 @@ def return_fit():
     df.to_excel(trial_errors_file, index=False)
         
 if __name__ == "__main__":
-    return_fit()                    
+    
+    return_fit(sys.argv[1])                    
                     

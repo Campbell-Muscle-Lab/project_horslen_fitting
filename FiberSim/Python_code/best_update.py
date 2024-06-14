@@ -22,9 +22,9 @@ def best_update():
     """ Updates a figure showing the best fit """
         
     # Variables
-    top_data_folder = '../progress'
+    top_data_folder = '../progress_abs'
     target_forces_file = '../target_data/target_forces.txt'
-    sim_comparison_file = '../progress/sim_comparison.png'
+    sim_comparison_file = '../progress_abs/sim_comparison.png'
     
     # Code
     # Adapt because files are relative to this file
@@ -103,6 +103,8 @@ def best_update():
     fig.savefig(sim_comparison_file,
                 bbox_inches='tight',
                 dpi=200)
+    
+    plt.close()
         
 if __name__ == "__main__":
     best_update()                    

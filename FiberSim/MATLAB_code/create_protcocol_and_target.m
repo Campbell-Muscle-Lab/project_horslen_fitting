@@ -5,11 +5,11 @@ function create_protcocol_and_target
 data_file_string = '../expt_data/horslen_fiber_18dec2017a_summary.mat';
 f_scaling_factor = 1e3;
 initial_hsl = 1300;
-pre_points = 100;
-protocol_folder = '../protocols';
-target_file_string = '../target_data/target_force.txt';
+pre_points = 750;
+protocol_folder = '../cMyoSim/protocols';
+target_file_string = '../cMyoSim/target_data/target_forces.txt';
 
-condition_indices = [7 5]
+condition_indices = [7 5 3 2 1]
 
 % Code
 expt_data = load(data_file_string);
@@ -44,6 +44,11 @@ for i = 1 : numel(condition_indices)
     d.hs_length = initial_hsl * d.fl ./ d.fl(1);
     d.delta_hs_length = [0 ; diff(d.hs_length)];
 
+    % Store the data for pCa
+    pd(1).pCa(i) = d.pCa(1);
+    pd(1).y(i) = d.force(1);
+    pd(1).y_error(i) = 0;
+
     % Store the target force
     target_force = [target_force d.force];
 
@@ -51,8 +56,8 @@ for i = 1 : numel(condition_indices)
     prot = [];
     dt = d.time_s(2) - d.time_s(1);
     prot.dt = dt * ones(pre_points + numel(d.time_s), 1);
-    prot.delta_hsl = [zeros(pre_points, 1) ; d.delta_hs_length];
     prot.pCa = d.pCa(1) * ones(pre_points + numel(d.time_s), 1);
+    prot.delta_hsl = [zeros(pre_points, 1) ; d.delta_hs_length];
     prot.mode = -2 * ones(numel(prot.dt), 1);
 
     % Convert to table
@@ -87,3 +92,12 @@ for i = 1 : numel(condition_indices)
 end
 
 writematrix(target_force, target_file_string, 'Delimiter', '\t');
+
+[pd(1).pCa_50, pd(1).n_H, ~, ~, ~, pd(1).x_fit, pd(1).y_fit] = ...
+    fit_Hill_curve(pd(1).pCa, pd(1).y);
+
+figure(2);
+clf
+plot_pCa_data_with_y_errors(pd)
+
+pd(1).pCa

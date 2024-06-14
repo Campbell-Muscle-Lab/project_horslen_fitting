@@ -1,0 +1,143 @@
+{
+    "cMyoSimSim": {
+        "version": "1.0.0"
+    },
+    "muscle": {
+        "no_of_half_sarcomeres": 1,
+        "no_of_myofibrils": 1,
+        "initial_hs_length": 1300,
+        "prop_fibrosis": 0.0,
+        "prop_myofilaments": 0.5,
+        "m_filament_density": 407000000000000.0,
+        "m_heads_per_filament": 324,
+        "temperature": 288
+    },
+    "series_component": {
+        "sc_k_stiff": 0,
+        "sc_sigma": 967.4234504244531,
+        "sc_L": 20.610423346017942
+    },
+    "lattice_parameters": {
+        "viscosity": 0.0
+    },
+    "intra_pas_parameters": {
+        "int_pas_sigma": 51,
+        "int_pas_L": 90,
+        "int_pas_slack_hsl": 967
+    },
+    "extra_pas_parameters": {
+        "ext_pas_sigma": 0,
+        "ext_pas_L": 100,
+        "ext_pas_slack_hsl": 1000
+    },
+    "thin_parameters": {
+        "a_k_on": 56386017.061959445,
+        "a_k_off": 100,
+        "a_k_coop": 4.797623050801577
+    },
+    "m_parameters": {
+        "m_k_cb": 0.001,
+        "m_fil_compliance_factor": 0.5,
+        "m_isotype_proportions": [
+            1
+        ]
+    },
+    "m_kinetics": [
+        {
+            "state": [
+                {
+                    "number": 1,
+                    "type": "S",
+                    "extension": 0,
+                    "transition": [
+                        {
+                            "new_state": 2,
+                            "rate_type": "force_dependent",
+                            "rate_parameters": [
+                                7.848271369934082,
+                                0.0001282485027331859
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "number": 2,
+                    "type": "D",
+                    "extension": 0,
+                    "transition": [
+                        {
+                            "new_state": 1,
+                            "rate_type": "constant",
+                            "rate_parameters": [
+                                238.22268676757812
+                            ]
+                        },
+                        {
+                            "new_state": 3,
+                            "rate_type": "gaussian_hsl",
+                            "rate_parameters": [
+                                144.41162109375
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "number": 3,
+                    "type": "A",
+                    "extension": 0.0,
+                    "transition": [
+                        {
+                            "new_state": 2,
+                            "rate_type": "poly_asym",
+                            "rate_parameters": [
+                                90.3031005859375,
+                                0.3003807067871094,
+                                0.09336413443088531,
+                                4.0,
+                                4.0
+                            ]
+                        },
+                        {
+                            "new_state": 4,
+                            "rate_type": "sigmoid",
+                            "rate_parameters": [
+                                118.47224426269531,
+                                -69.5747299194336,
+                                1.0,
+                                0.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "number": 4,
+                    "type": "A",
+                    "extension": 8.039233948442297,
+                    "transition": [
+                        {
+                            "new_state": 2,
+                            "rate_type": "exp_wall",
+                            "ATP_required": "y",
+                            "rate_parameters": [
+                                138.25869750976562,
+                                0.6644937992095947,
+                                6.320352554321289,
+                                4.0
+                            ]
+                        },
+                        {
+                            "new_state": 3,
+                            "rate_type": "sigmoid",
+                            "rate_parameters": [
+                                55.112579345703125,
+                                169.31964111328125,
+                                1.0,
+                                0.0
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
